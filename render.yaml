@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: securevault-file-security
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:server --workers 1 --threads 4 --timeout 120
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MAX_FILE_SIZE_MB
+        value: 8
+      - key: MAX_DECOMPRESSED_SIZE_MB
+        value: 64
